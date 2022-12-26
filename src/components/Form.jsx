@@ -3,11 +3,12 @@ import Aside from "./Aside";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Personal_info from "./pages/Personal-info";
+import Personal_info from "./pages/Personal-info/Personal-info";
+import Plan from "./pages/plan/Plan";
 
 export default function Form() {
-	const [step, setStep] = useState(0);
-	const [plan, setPlan] = useState(true); //true = monthly && false = yearly;
+	const [step, setStep] = useState(1);
+	const [plan, setPlan] = useState(false); //true = monthly && false = yearly;
 	const [headStep, setHeadStep] = useState([
 		{
 			h1: "Personal info",
@@ -36,18 +37,21 @@ export default function Form() {
 
 		validationSchema: Yup.object({
 			name: Yup.string()
-				.max(15, "Name must be at least 15 characters long")
+				.min(15, "Name must be at least 15 characters long")
 				.required("Name is required"),
 			email: Yup.string()
 				.email("Invalid email address")
-				.required("Email is requred"),
+				.required("Email is required"),
 			phone: Yup.string()
 				.min(10, "Phone number must be at least 10")
 				.required("Phone number is required"),
 		}),
 
 		onSubmit: (values) => {
-			console.log(values);
+			if (Object.values(values).every((data) => data !== "")) {
+				console.log(values);
+			}
+			setStep((prev) => prev + 1);
 		},
 	});
 
@@ -60,16 +64,38 @@ export default function Form() {
 							<Aside step={step} setStep={setStep} />
 						</div>
 					</div>
+
 					{step === 0 && (
 						<Personal_info step={step} formik={formik} headStep={headStep} />
 					)}
 
+					{step === 1 && (
+						<Plan
+							step={step}
+							formik={formik}
+							headStep={headStep}
+							plan={plan}
+							setPlan={setPlan}
+						/>
+					)}
+
 					<div className=" form move-forward">
-						<div className="container">
-							<button type="submit" form="myForm">
+						<div
+							className="container"
+							style={{ justifyContent: "space-between" }}
+						>
+							<button className="forward" type="submit" form="myForm">
 								Next Step
 							</button>
-							<button className="back">Go back</button>
+							{step > 0 && (
+								<button
+									className="back"
+									style={{ display: "flex" }}
+									onClick={() => setStep((prev) => prev - 1)}
+								>
+									Go back
+								</button>
+							)}
 						</div>
 					</div>
 				</div>

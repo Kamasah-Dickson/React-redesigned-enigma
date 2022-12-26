@@ -1,26 +1,6 @@
 @use "sass:math";
 @use "./colors" as c;
-// @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Ubuntu:wght@400;500;700&display=swap");
-
-// @font-face {
-// 	font-family: "My Custom Font";
-// 	src: url("./my-custom-font.ttf") format("truetype");
-//   }
-
-@font-face {
-	font-family: "Ubuntu", sans-serif;
-	src: url("./assets/fonts/Ubuntu-Bold.ttf"),
-		url("./assets/fonts/Ubuntu-Medium.ttf"),
-		url("./assets/fonts/Ubuntu-Regular.ttf");
-}
-
-@function rem($size) {
-	@if math.is-unitless($size) {
-		@return math.div($size, 16) + rem;
-	} @else {
-		@error 'Do not include units in the rem function';
-	}
-}
+@use "./variables.scss" as *;
 
 * {
 	padding: 0;
@@ -28,21 +8,9 @@
 	font-family: "Ubuntu", sans-serif;
 }
 
-$weight-sm: 400;
-$weight-md: 500;
-$weight-lg: 700;
-
-$margin-vs: rem(7);
-$margin-sm: rem(10);
-$margin-lg: rem(25);
-
-$padding-vs: rem(5);
-$padding-sm: rem(10);
-$padding-md: rem(15);
-$padding-lg: rem(25);
-
 body {
 	font-size: rem(16);
+	font-family: "Ubuntu", sans-serif;
 	background-color: c.$Magnolia;
 	// min-height: 100vh;
 	display: grid;
@@ -61,6 +29,8 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	height: rem(170);
+
+	//m-steps
 	.form-wrapper {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -100,76 +70,16 @@ body {
 				}
 			}
 		}
-		.provide-details {
-			z-index: 3;
-			background-color: c.$White;
-			box-shadow: 0 1.1rem 1rem -0.8rem c.$Light-gray;
-			padding: rem(40) rem(20);
-			border-radius: rem(10);
-			h1 {
-				color: c.$Marine-blue;
-				margin-bottom: $margin-sm;
-				font-weight: $weight-lg;
-				font-size: clamp(rem(20), rem(20) + 3vw, rem(35));
-			}
-			p {
-				color: c.$Cool-gray;
-				margin-bottom: $margin-lg;
-				font-weight: $weight-md;
-				font-size: clamp(rem(11), rem(12) + 1.4vw, rem(20));
-				line-height: 1.5;
-			}
-			form {
-				label {
-					display: block;
-					text-transform: capitalize;
-					color: c.$Marine-blue;
-					font-weight: $weight-md;
-					margin-bottom: $margin-vs;
-					font-size: clamp(rem(11), rem(12) + 1vw, rem(20));
-					margin-top: $margin-lg;
-					width: 100%;
-				}
-				input {
-					width: calc(100% - $padding-vs);
-					display: block;
-					height: rem(43);
-					border: rem(0.9) solid c.$Cool-gray;
-					border-radius: rem(5);
-					font-size: clamp(rem(7), rem(8) + 1.8vw, rem(20));
-					color: c.$Marine-blue;
-					font-weight: $weight-lg;
-					padding-left: $padding-vs;
-					&:focus {
-						outline: rem(0.5) solid c.$Purplish-blue;
-					}
 
-					&::placeholder {
-						padding-left: $padding-vs;
-						color: c.$Cool-gray;
-						font-size: clamp(rem(7), rem(8) + 1.8vw, rem(20));
-						font-weight: $weight-md;
-					}
-				}
-				.error {
-					color: c.$Strawberry-red;
-					font-size: rem(14);
-					font-weight: $weight-sm;
-					margin-top: $margin-sm;
-				}
-			}
-		}
 		.move-forward {
 			width: 100%;
 			background-color: c.$White;
 			padding-block: rem(20);
-			margin-top: rem(65);
+			margin-top: rem(50);
 			.container {
 				display: flex;
 				align-items: center;
-				justify-content: space-between;
 				button {
-					margin-left: auto;
 					padding: rem(15) rem(25);
 					border-radius: rem(7);
 					background-color: c.$Marine-blue;
@@ -178,9 +88,21 @@ body {
 					color: c.$White;
 					cursor: pointer;
 					border: none;
+					display: inline-block;
+				}
+				.forward {
+					justify-self: flex-end;
+					margin-left: auto;
+					order: 2;
 				}
 				.back {
+					justify-self: flex-start;
+					margin-right: auto;
+					order: 1;
 					display: none;
+					background-color: transparent;
+					color: c.$Cool-gray;
+					font-weight: $weight-lg;
 				}
 			}
 		}

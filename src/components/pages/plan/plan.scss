@@ -1,0 +1,86 @@
+@use "../../../colors" as c;
+@use "../../../variables.scss" as *;
+
+.plans {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: rem(15);
+	.plan {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: rem(13);
+		padding: rem(5) rem(15);
+		height: rem(80);
+		border-radius: rem(8);
+		border: rem(1) solid c.$Light-gray;
+		&:hover {
+			border-color: c.$Purplish-blue;
+			background-color: c.$Magnolia;
+			transition: 0.2s ease;
+			cursor: pointer;
+		}
+		h2 {
+			font-size: rem(17);
+			color: c.$Marine-blue;
+			margin-bottom: rem(2);
+			font-weight: $weight-lg;
+		}
+
+		.plan-details {
+			p {
+				margin: 0;
+				font-weight: $weight-sm;
+				font-size: rem(16);
+				font-weight: $weight-md;
+			}
+			span {
+				color: c.$Marine-blue;
+				font-weight: $weight-md;
+				font-size: rem(15);
+			}
+		}
+	}
+}
+.choice {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: rem(20);
+	background-color: c.$Magnolia;
+	border-radius: rem(8);
+	padding-block: rem(10);
+	.focus {
+		color: c.$Marine-blue;
+		font-weight: $weight-lg;
+	}
+	span {
+		color: c.$Cool-gray;
+	}
+	span.MuiSwitch-track {
+		background-color: c.$Marine-blue;
+		opacity: 1;
+		height: rem(22);
+		border-radius: rem(20);
+	}
+	.css-julti5-MuiSwitch-root {
+		width: rem(65);
+		height: unset;
+	}
+	.css-jsexje-MuiSwitch-thumb {
+		background-color: c.$White;
+		height: rem(14);
+		width: rem(14);
+		position: relative;
+		top: rem(7);
+		left: rem(7);
+	}
+	.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
+		+ .MuiSwitch-track {
+		background-color: c.$Marine-blue !important;
+		opacity: 1;
+	}
+}

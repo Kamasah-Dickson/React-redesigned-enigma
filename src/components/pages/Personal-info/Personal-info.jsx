@@ -1,3 +1,4 @@
+import "./personal-info.scss";
 export default function Personal_info({ formik, step, headStep }) {
 	return (
 		<div className="container">

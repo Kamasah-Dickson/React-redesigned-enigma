@@ -1,0 +1,29 @@
+@use "sass:math";
+@font-face {
+	font-family: "Ubuntu", sans-serif;
+	src: url("./assets/fonts/Ubuntu-Bold.ttf"),
+		url("./assets/fonts/Ubuntu-Medium.ttf"),
+		url("./assets/fonts/Ubuntu-Regular.ttf");
+}
+
+@function rem($size) {
+	@if math.is-unitless($size) {
+		@return math.div($size, 16) + rem;
+	} @else {
+		@error 'Do not include units in the rem function';
+	}
+}
+
+$weight-sm: regular;
+$weight-md: medium;
+$weight-lg: bold;
+
+$margin-vs: rem(7);
+$margin-sm: rem(10);
+$margin-md: rem(15);
+$margin-lg: rem(25);
+
+$padding-vs: rem(5);
+$padding-sm: rem(10);
+$padding-md: rem(15);
+$padding-lg: rem(25);
