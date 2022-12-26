@@ -1,6 +1,9 @@
 import React from "react";
 import Aside from "./Aside";
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Personal_info from "./pages/Personal-info";
 
 export default function Form() {
 	const [step, setStep] = useState(0);
@@ -24,6 +27,30 @@ export default function Form() {
 		},
 	]);
 
+	const formik = useFormik({
+		initialValues: {
+			name: "",
+			email: "",
+			phone: "",
+		},
+
+		validationSchema: Yup.object({
+			name: Yup.string()
+				.max(15, "Name must be at least 15 characters long")
+				.required("Name is required"),
+			email: Yup.string()
+				.email("Invalid email address")
+				.required("Email is requred"),
+			phone: Yup.string()
+				.min(10, "Phone number must be at least 10")
+				.required("Phone number is required"),
+		}),
+
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
+
 	return (
 		<>
 			<div className="form-section">
@@ -33,29 +60,18 @@ export default function Form() {
 							<Aside step={step} setStep={setStep} />
 						</div>
 					</div>
-					<div className="container">
-						<div className="provide-details">
-							<h1>{headStep[step].h1}</h1>
-							<p>{headStep[step].p}</p>
-							<form>
-								<label htmlFor="name">Name</label>
-								<input type="text" placeholder="e.g Kamasah Dickson" />
-								<label htmlFor="name">Email address</label>
-								<input
-									type="email"
-									placeholder="e.g Kamasahdickson19@gmail.com"
-								/>
-								<label htmlFor="name">phone number</label>
-								<input type="text" placeholder="e.g +233594571065" />
-							</form>
+					{step === 0 && (
+						<Personal_info step={step} formik={formik} headStep={headStep} />
+					)}
+
+					<div className=" form move-forward">
+						<div className="container">
+							<button type="submit" form="myForm">
+								Next Step
+							</button>
+							<button className="back">Go back</button>
 						</div>
 					</div>
-
-					<form className="move-forward">
-						<div className="container">
-							<button>Next Step</button>
-						</div>
-					</form>
 				</div>
 			</div>
 		</>

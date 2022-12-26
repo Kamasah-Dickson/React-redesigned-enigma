@@ -1,6 +1,18 @@
 @use "sass:math";
 @use "./colors" as c;
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Ubuntu:wght@400;500;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Ubuntu:wght@400;500;700&display=swap");
+
+// @font-face {
+// 	font-family: "My Custom Font";
+// 	src: url("./my-custom-font.ttf") format("truetype");
+//   }
+
+@font-face {
+	font-family: "Ubuntu", sans-serif;
+	src: url("./assets/fonts/Ubuntu-Bold.ttf"),
+		url("./assets/fonts/Ubuntu-Medium.ttf"),
+		url("./assets/fonts/Ubuntu-Regular.ttf");
+}
 
 @function rem($size) {
 	@if math.is-unitless($size) {
@@ -115,7 +127,7 @@ body {
 					font-weight: $weight-md;
 					margin-bottom: $margin-vs;
 					font-size: clamp(rem(11), rem(12) + 1vw, rem(20));
-					margin-top: rem(25);
+					margin-top: $margin-lg;
 					width: 100%;
 				}
 				input {
@@ -139,6 +151,12 @@ body {
 						font-weight: $weight-md;
 					}
 				}
+				.error {
+					color: c.$Strawberry-red;
+					font-size: rem(14);
+					font-weight: $weight-sm;
+					margin-top: $margin-sm;
+				}
 			}
 		}
 		.move-forward {
@@ -146,18 +164,24 @@ body {
 			background-color: c.$White;
 			padding-block: rem(20);
 			margin-top: rem(65);
-			button {
-				display: block;
-				margin-left: auto;
-				margin-right: rem(10);
-				padding: rem(15) rem(25);
-				border-radius: rem(7);
-				background-color: c.$Marine-blue;
-				font-size: clamp(rem(11), rem(11) + 1.3vw, rem(20));
-				font-weight: $weight-md;
-				color: c.$White;
-				cursor: pointer;
-				border: none;
+			.container {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				button {
+					margin-left: auto;
+					padding: rem(15) rem(25);
+					border-radius: rem(7);
+					background-color: c.$Marine-blue;
+					font-size: clamp(rem(11), rem(11) + 1.3vw, rem(20));
+					font-weight: $weight-md;
+					color: c.$White;
+					cursor: pointer;
+					border: none;
+				}
+				.back {
+					display: none;
+				}
 			}
 		}
 	}
