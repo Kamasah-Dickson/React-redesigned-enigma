@@ -28,6 +28,24 @@ export default function Form() {
 		},
 	]);
 
+	// ==================Pages form data and validation==============
+
+	const PlanFormik = useFormik({
+		initialValues: {
+			planChoosed: "",
+			period: "Monthly",
+		},
+		validationSchema: Yup.object({
+			planChoosed: Yup.string().required("Please choose a plan"),
+		}),
+		onSubmit: (values) => {
+			if (Object.values(values).every((data) => data !== "")) {
+				console.log(values);
+				setStep((prev) => prev + 1);
+			}
+		},
+	});
+
 	const formik = useFormik({
 		initialValues: {
 			name: "",
@@ -55,6 +73,16 @@ export default function Form() {
 		},
 	});
 
+	// ================end of page form vadidations==============
+
+	function handleSteps() {
+		if (formik.errors && PlanFormik.errors) {
+			return;
+		} else {
+			setStep((prev) => prev + 1);
+		}
+	}
+
 	return (
 		<>
 			<div className="form-section">
@@ -72,10 +100,10 @@ export default function Form() {
 					{step === 1 && (
 						<Plan
 							step={step}
-							formik={formik}
 							headStep={headStep}
 							plan={plan}
 							setPlan={setPlan}
+							PlanFormik={PlanFormik}
 						/>
 					)}
 
@@ -84,7 +112,12 @@ export default function Form() {
 							className="container"
 							style={{ justifyContent: "space-between" }}
 						>
-							<button className="forward" type="submit" form="myForm">
+							<button
+								className="forward"
+								type="submit"
+								onClick={handleSteps}
+								form={step === 0 ? "myForm" : "planForm"}
+							>
 								Next Step
 							</button>
 							{step > 0 && (

@@ -42,8 +42,23 @@
 				font-size: rem(15);
 			}
 		}
+		&.active {
+			border-color: c.$Purplish-blue;
+			background-color: c.$Magnolia;
+			transition: 0.2s ease;
+			cursor: pointer;
+			outline: rem(1) solid c.$Purplish-blue;
+		}
+	}
+	.error {
+		color: c.$Strawberry-red;
+		font-size: rem(15);
+		text-align: center;
+		font-weight: $weight-sm;
+		margin: 0;
 	}
 }
+
 .choice {
 	width: 100%;
 	display: flex;
@@ -53,12 +68,15 @@
 	background-color: c.$Magnolia;
 	border-radius: rem(8);
 	padding-block: rem(10);
+	gap: rem(15);
 	.focus {
 		color: c.$Marine-blue;
 		font-weight: $weight-lg;
 	}
 	span {
 		color: c.$Cool-gray;
+		cursor: pointer;
+		user-select: none;
 	}
 	span.MuiSwitch-track {
 		background-color: c.$Marine-blue;
@@ -66,9 +84,10 @@
 		height: rem(22);
 		border-radius: rem(20);
 	}
+
 	.css-julti5-MuiSwitch-root {
-		width: rem(65);
 		height: unset;
+		width: rem(67);
 	}
 	.css-jsexje-MuiSwitch-thumb {
 		background-color: c.$White;

@@ -35,11 +35,11 @@
 			width: calc(100% - $padding-vs);
 			display: block;
 			height: rem(43);
-			border: rem(0.9) solid c.$Cool-gray;
+			border: rem(0.9) solid c.$Light-gray;
 			border-radius: rem(5);
 			font-size: clamp(rem(7), rem(8) + 1.8vw, rem(20));
 			color: c.$Marine-blue;
-			font-weight: $weight-lg;
+			font-weight: $weight-md;
 			padding-left: $padding-vs;
 			&:focus {
 				outline: rem(0.5) solid c.$Purplish-blue;
