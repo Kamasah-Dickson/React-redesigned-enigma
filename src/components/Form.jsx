@@ -5,9 +5,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Personal_info from "./pages/Personal-info/Personal-info";
 import Plan from "./pages/plan/Plan";
+import Add_ons from "./pages/Add-ons/Add-ons";
 
 export default function Form() {
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(2);
 	const [plan, setPlan] = useState(false); //true = monthly && false = yearly;
 	const [headStep, setHeadStep] = useState([
 		{
@@ -29,6 +30,23 @@ export default function Form() {
 	]);
 
 	// ==================Pages form data and validation==============
+
+	const addOnsFormik = useFormik({
+		initialValues: {
+			onlineService: false,
+			largerStorage: false,
+			customizableProfile: false,
+		},
+		validationSchema: Yup.object({
+			onlineService: Yup.boolean(),
+			largerStorage: Yup.boolean(),
+			customElements: Yup.boolean(),
+		}),
+		onSubmit: (values) => {
+			setStep((prev) => prev + 1);
+			console.log(values);
+		},
+	});
 
 	const PlanFormik = useFormik({
 		initialValues: {
@@ -106,6 +124,13 @@ export default function Form() {
 							PlanFormik={PlanFormik}
 						/>
 					)}
+					{step === 2 && (
+						<Add_ons
+							step={step}
+							headStep={headStep}
+							addOnsFormik={addOnsFormik}
+						/>
+					)}
 
 					<div className=" form move-forward">
 						<div
@@ -116,7 +141,15 @@ export default function Form() {
 								className="forward"
 								type="submit"
 								onClick={handleSteps}
-								form={step === 0 ? "myForm" : "planForm"}
+								form={
+									step === 0
+										? "myForm"
+										: step === 1
+										? "planForm"
+										: step === 2
+										? "add_onsForm"
+										: null
+								}
 							>
 								Next Step
 							</button>

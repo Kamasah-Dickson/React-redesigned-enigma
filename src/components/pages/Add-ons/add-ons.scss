@@ -1,0 +1,63 @@
+@use "../../../colors" as c;
+@use "../../../variables.scss" as *;
+
+.pick-add-ons {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: rem(20);
+	.add-ons {
+		gap: rem(20);
+		display: flex;
+		align-items: center;
+		padding: rem(10) rem(20);
+		height: rem(50);
+		width: 85%;
+		margin-inline: auto;
+		border-radius: rem(8);
+		border: rem(1) solid c.$Light-gray;
+		&.active {
+			border-color: c.$Purplish-blue;
+			background-color: c.$Magnolia;
+			transition: 0.2s ease;
+			cursor: pointer;
+			outline: rem(1) solid c.$Purplish-blue;
+		}
+		input {
+			height: rem(20);
+			width: rem(20);
+		}
+
+		&:hover {
+			border-color: c.$Purplish-blue;
+			background-color: c.$Magnolia;
+			transition: 0.2s ease;
+			cursor: pointer;
+		}
+	}
+	.title {
+		h3 {
+			font-size: rem(16);
+			color: c.$Marine-blue;
+			margin-bottom: rem(1);
+			font-weight: $weight-lg;
+		}
+		p {
+			margin: 0;
+			font-weight: $weight-sm;
+			font-size: rem(13);
+			font-weight: $weight-md;
+		}
+	}
+	span {
+		margin-left: auto;
+		color: c.$Purplish-blue;
+		font-weight: $weight-md;
+		font-size: rem(13);
+		justify-self: flex-end;
+		text-align: right;
+		justify-items: flex-end;
+		align-items: flex-end;
+	}
+}

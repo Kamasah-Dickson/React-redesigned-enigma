@@ -28,7 +28,7 @@ export default function Personal_info({ formik, step, headStep }) {
 						value={formik.values.email}
 						onChange={formik.handleChange}
 						onBlur={formik.handleChange}
-						placeholder="e.g Kamasahdickson19@gmail.com"
+						placeholder="e.g kamasahdickson19@gmail.com"
 					/>
 					{formik.touched.email && formik.errors.email && (
 						<p className="error">{formik.errors.email}</p>
