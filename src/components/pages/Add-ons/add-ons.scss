@@ -8,11 +8,11 @@
 	justify-content: center;
 	gap: rem(20);
 	.add-ons {
-		gap: rem(20);
+		gap: clamp(rem(5), rem(13) + 3vw, rem(15));
 		display: flex;
 		align-items: center;
 		padding: rem(10) rem(20);
-		height: rem(50);
+		height: rem(55);
 		width: 85%;
 		margin-inline: auto;
 		border-radius: rem(8);
@@ -22,11 +22,17 @@
 			background-color: c.$Magnolia;
 			transition: 0.2s ease;
 			cursor: pointer;
-			outline: rem(1) solid c.$Purplish-blue;
 		}
-		input {
-			height: rem(20);
+		.checkbox {
+			margin: 0;
+			color: c.$Cool-gray;
 			width: rem(20);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			&.Mui-checked {
+				color: c.$Purplish-blue;
+			}
 		}
 
 		&:hover {
@@ -38,15 +44,15 @@
 	}
 	.title {
 		h3 {
-			font-size: rem(16);
+			font-size: clamp(rem(12), rem(12) + 4vw, rem(15));
 			color: c.$Marine-blue;
-			margin-bottom: rem(1);
+			margin-bottom: rem(3);
 			font-weight: $weight-lg;
 		}
 		p {
 			margin: 0;
 			font-weight: $weight-sm;
-			font-size: rem(13);
+			font-size: clamp(rem(7), rem(8) + 2vw, rem(14));
 			font-weight: $weight-md;
 		}
 	}
@@ -54,7 +60,7 @@
 		margin-left: auto;
 		color: c.$Purplish-blue;
 		font-weight: $weight-md;
-		font-size: rem(13);
+		font-size: rem(14);
 		justify-self: flex-end;
 		text-align: right;
 		justify-items: flex-end;

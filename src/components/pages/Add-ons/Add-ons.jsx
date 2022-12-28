@@ -2,8 +2,15 @@ import React from "react";
 import { useRef } from "react";
 import "./add-ons.scss";
 import { useEffect } from "react";
+import Checkbox from "@mui/material/Checkbox";
 
-export default function Add_ons({ headStep, step, addOnsFormik }) {
+export default function Add_ons({
+	headStep,
+	step,
+	addOnsFormik,
+	plan,
+	dispatch,
+}) {
 	const serviceRef = useRef(null);
 	const storageRef = useRef(null);
 	const profileRef = useRef(null);
@@ -25,7 +32,75 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 		addOnsFormik.values.customizableProfile
 			? profileRef.current?.parentElement.classList.add("active")
 			: profileRef.current?.parentElement.classList.remove("active");
-	}, []);
+	}, [
+		addOnsFormik.values.onlineService,
+		addOnsFormik.values.largerStorage,
+		addOnsFormik.values.customizableProfile,
+	]);
+
+	//Used an individual useEffect below instead of one big if else check
+	//with one useEffect and all dependency. I chose an individual useEffect to
+	//  help update the necessary state. I could have done the previous one above like below
+	// but I wanted you to notice the difference .....just in case.
+
+	useEffect(() => {
+		if (addOnsFormik.values.onlineService) {
+			dispatch({
+				type: "SERVICES",
+				payload: {
+					name: "Online Service",
+					price: plan ? 10 : 1,
+				},
+			});
+		} else {
+			dispatch({
+				type: "SERVICES",
+				payload: {
+					name: "",
+					price: "",
+				},
+			});
+		}
+	}, [addOnsFormik.values.onlineService, plan]);
+	useEffect(() => {
+		if (addOnsFormik.values.largerStorage) {
+			dispatch({
+				type: "STORAGE",
+				payload: {
+					name: "Larger storage",
+					price: plan ? 20 : 2,
+				},
+			});
+		} else {
+			dispatch({
+				type: "STORAGE",
+				payload: {
+					name: "",
+					price: "",
+				},
+			});
+		}
+	}, [addOnsFormik.values.largerStorage, plan]);
+
+	useEffect(() => {
+		if (addOnsFormik.values.customizableProfile) {
+			dispatch({
+				type: "PROFILE",
+				payload: {
+					name: "Customizable Profile",
+					price: plan ? 20 : 2,
+				},
+			});
+		} else {
+			dispatch({
+				type: "PROFILE",
+				payload: {
+					name: "",
+					price: "",
+				},
+			});
+		}
+	}, [addOnsFormik.values.customizableProfile, plan]);
 
 	const handleFocus = (e) => {
 		e.target.classList.add("active");
@@ -45,6 +120,7 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 						<label
 							htmlFor="service"
 							className="add-ons service"
+							name="Online Service"
 							tabIndex={0}
 							onFocus={(e) => handleFocus(e)}
 							onBlur={(e) => handleBlur(e)}
@@ -54,12 +130,13 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 									: serviceRef.current?.parentElement.classList.remove("active")
 							}
 						>
-							<input
+							<Checkbox
+								size="medium"
+								className="checkbox"
 								ref={serviceRef}
-								checked={addOnsFormik.values.onlineService}
-								type="checkbox"
-								name="onlineService"
 								id="service"
+								checked={addOnsFormik.values.onlineService}
+								name="onlineService"
 								value={addOnsFormik.values.onlineService}
 								onChange={addOnsFormik.handleChange}
 							/>
@@ -67,7 +144,7 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 								<h3>Online Service</h3>
 								<p>Access to multiplayer games</p>
 							</div>
-							<span>+$1/monthly</span>
+							<span>{plan ? "+$10/yr" : "+$1/mo"}</span>
 						</label>
 						<label
 							htmlFor="storage"
@@ -82,11 +159,13 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 									: storageRef.current?.parentElement.classList.remove("active")
 							}
 						>
-							<input
+							<Checkbox
+								className="checkbox"
+								size="medium"
+								id="storage"
 								ref={storageRef}
 								checked={addOnsFormik.values.largerStorage}
 								type="checkbox"
-								id="storage"
 								name="largerStorage"
 								value={addOnsFormik.values.largerStorage}
 								onChange={addOnsFormik.handleChange}
@@ -95,7 +174,7 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 								<h3>Larger storage</h3>
 								<p>Extra 1TB of cloud save</p>
 							</div>
-							<span>+$2/monthly</span>
+							<span>{plan ? "+$20/yr" : "+$2/mo"}</span>
 						</label>
 						<label
 							htmlFor="profile"
@@ -109,11 +188,13 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 									: profileRef.current?.parentElement.classList.remove("active")
 							}
 						>
-							<input
+							<Checkbox
+								className="checkbox"
+								size="medium"
+								id="profile"
 								ref={profileRef}
 								type="checkbox"
 								checked={addOnsFormik.values.customizableProfile}
-								id="profile"
 								name="customizableProfile"
 								value={addOnsFormik.values.customizableProfile}
 								onChange={addOnsFormik.handleChange}
@@ -122,7 +203,7 @@ export default function Add_ons({ headStep, step, addOnsFormik }) {
 								<h3>Customizable profile</h3>
 								<p>custom theme on your profile</p>
 							</div>
-							<span>+$2/monthly</span>
+							<span>{plan ? "+$20/yr" : "+$2/mo"}</span>
 						</label>
 					</div>
 				</div>

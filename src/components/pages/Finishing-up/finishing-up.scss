@@ -1,0 +1,84 @@
+@use "../../../colors" as c;
+@use "../../../variables.scss" as *;
+@use "sass:math";
+
+.provide-details {
+	.finish-up {
+		background-color: c.$Magnolia;
+		padding: rem(20);
+		border-radius: rem(8);
+		.planed {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-bottom: rem(15);
+			position: relative;
+			.left {
+				h3 {
+					color: c.$Marine-blue;
+					font-weight: $weight-lg;
+					font-size: clamp(rem(12), rem(12) + 4vw, rem(17));
+					margin-bottom: rem(4);
+					text-transform: capitalize;
+				}
+				span {
+					font-size: rem(18);
+					text-decoration: underline;
+					color: c.$Cool-gray;
+					cursor: pointer;
+				}
+			}
+			.price {
+				color: c.$Marine-blue;
+				font-weight: $weight-lg;
+				font-size: clamp(rem(12), rem(12) + 4vw, rem(18));
+			}
+			&::before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: rem(0.7);
+				background-color: c.$Light-gray;
+			}
+		}
+		.added-on {
+			padding-top: rem(15);
+			display: flex;
+			flex-direction: column;
+			gap: rem(20);
+			.added {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				span {
+					font-weight: $weight-md;
+					color: c.$Cool-gray;
+					font-size: rem(17);
+				}
+				.price {
+					color: c.$Marine-blue;
+					font-weight: $weight-lg;
+					font-size: clamp(rem(12), rem(15) + 4vw, rem(15));
+				}
+			}
+		}
+	}
+	.total-plan {
+		padding: 0 rem(20);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: rem(25);
+		span {
+			color: c.$Cool-gray;
+			font-size: clamp(rem(12), rem(12) + 4vw, rem(18));
+		}
+		.total-price {
+			color: c.$Purplish-blue;
+			font-size: rem(18);
+			font-weight: $weight-lg;
+		}
+	}
+}

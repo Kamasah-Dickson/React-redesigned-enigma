@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useState } from "react";
 import { useFormik } from "formik";
@@ -6,9 +6,11 @@ import * as Yup from "yup";
 import Personal_info from "./pages/Personal-info/Personal-info";
 import Plan from "./pages/plan/Plan";
 import Add_ons from "./pages/Add-ons/Add-ons";
+import Finishing_up from "./pages/Finishing-up/Finishing-up";
+import { useReducer } from "react";
 
 export default function Form() {
-	const [step, setStep] = useState(2);
+	const [step, setStep] = useState(3);
 	const [plan, setPlan] = useState(false); //true = monthly && false = yearly;
 	const [headStep, setHeadStep] = useState([
 		{
@@ -31,6 +33,56 @@ export default function Form() {
 
 	// ==================Pages form data and validation==============
 
+	const [addOnData, dispatch] = useReducer(
+		(state, action) => {
+			switch (action.type) {
+				case "SERVICES":
+					return {
+						...state,
+						service: {
+							name: action.payload.name,
+							price: action.payload.price,
+						},
+					};
+				case "STORAGE":
+					return {
+						...state,
+						storage: {
+							name: action.payload.name,
+							price: action.payload.price,
+							id: 8,
+						},
+					};
+
+				case "PROFILE":
+					return {
+						...state,
+						profile: {
+							name: action.payload.name,
+							price: action.payload.price,
+						},
+					};
+			}
+		},
+		{
+			service: {
+				name: "",
+				price: "",
+				id: 2,
+			},
+			storage: {
+				name: "",
+				price: "",
+				id: 12,
+			},
+			profile: {
+				name: "",
+				price: "",
+				id: 9,
+			},
+		}
+	);
+
 	const addOnsFormik = useFormik({
 		initialValues: {
 			onlineService: false,
@@ -44,9 +96,13 @@ export default function Form() {
 		}),
 		onSubmit: (values) => {
 			setStep((prev) => prev + 1);
+			console.log(planPrice);
+
 			console.log(values);
 		},
 	});
+
+	const [planPrice, setPlanPrice] = useState("");
 
 	const PlanFormik = useFormik({
 		initialValues: {
@@ -59,6 +115,7 @@ export default function Form() {
 		onSubmit: (values) => {
 			if (Object.values(values).every((data) => data !== "")) {
 				console.log(values);
+
 				setStep((prev) => prev + 1);
 			}
 		},
@@ -122,6 +179,7 @@ export default function Form() {
 							plan={plan}
 							setPlan={setPlan}
 							PlanFormik={PlanFormik}
+							setPlanPrice={setPlanPrice}
 						/>
 					)}
 					{step === 2 && (
@@ -129,6 +187,20 @@ export default function Form() {
 							step={step}
 							headStep={headStep}
 							addOnsFormik={addOnsFormik}
+							plan={plan}
+							dispatch={dispatch}
+						/>
+					)}
+
+					{step === 3 && (
+						<Finishing_up
+							step={step}
+							headStep={headStep}
+							choosedPlan={PlanFormik.values.planChoosed}
+							plan={plan}
+							planPrice={planPrice}
+							setStep={setStep}
+							addOnData={addOnData}
 						/>
 					)}
 
@@ -138,6 +210,9 @@ export default function Form() {
 							style={{ justifyContent: "space-between" }}
 						>
 							<button
+								style={
+									step === 3 ? { backgroundColor: "hsl(243, 100%, 62%)" } : {}
+								}
 								className="forward"
 								type="submit"
 								onClick={handleSteps}
@@ -151,7 +226,7 @@ export default function Form() {
 										: null
 								}
 							>
-								Next Step
+								{step === 3 ? "Confirm" : "Next step"}
 							</button>
 							{step > 0 && (
 								<button

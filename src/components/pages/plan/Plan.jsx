@@ -6,12 +6,28 @@ import pro from "../../../images/icon-pro.svg";
 import Switch from "@mui/material/Switch";
 import { useEffect } from "react";
 import { useState } from "react";
-export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
+
+export default function Plan({
+	headStep,
+	step,
+	plan,
+	setPlan,
+	PlanFormik,
+	setPlanPrice,
+}) {
+	const arcadePrice = !plan ? "$9" : "$90/yr";
+	const advancePrice = !plan ? "$12/mo" : "$120/yr";
+	const proPrice = !plan ? "$15/mo" : "$150/yr";
+	// want the raw value for summation
+	const numArcadePrice = !plan ? 9 : 90;
+	const numAdvancePrice = !plan ? 12 : 120;
+	const numProPrice = !plan ? 15 : 150;
+
 	const toggleProps = {
 		"aria-label": plan ? "set plan yearly" : "plan yearly",
 	};
 
-	// NB:planFormik is an object I created  with react useFormik state....can be found at forms.jsx
+	//** */ NB:planFormik is useFormik object storing state....can be found at forms.jsx
 
 	// ==============Set an active className for Plans🙂===============
 	const [activePlan, setActivePlan] = useState("");
@@ -20,8 +36,13 @@ export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
 	const advanceRef = useRef();
 	const proRef = useRef();
 
+	// the useEffect below checks if the element already has the active class before adding it.
+	//  This way, the active class will not be removed when plan
+	// or PlanFormik.values.planChoosed change.
+
 	// ** I created this logic because,
-	// ** Whenever a user chooses a plan and clicks the next button and click the prev button, the active class resets.
+	// ** Whenever a user chooses a plan and clicks the next button
+	// ** and click the prev button, the active class resets.
 
 	useEffect(() => {
 		const arcadePlan = arcadeRef.current;
@@ -30,29 +51,35 @@ export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
 
 		switch (PlanFormik.values.planChoosed) {
 			case arcadePlan.getAttribute("value"):
-				return (
-					arcadePlan.classList.add("active"),
-					advancePlan.classList.remove("active"),
-					proPlan.classList.remove("active")
-				);
+				if (!arcadePlan.classList.contains("active")) {
+					arcadePlan.classList.add("active");
+				}
+				advancePlan.classList.remove("active");
+				proPlan.classList.remove("active");
+				setPlanPrice(numArcadePrice);
+				break;
 
 			case advancePlan.getAttribute("value"):
-				return (
-					advancePlan.classList.add("active"),
-					arcadePlan.classList.remove("active"),
-					proPlan.classList.remove("active")
-				);
+				if (!advancePlan.classList.contains("active")) {
+					advancePlan.classList.add("active");
+				}
+				arcadePlan.classList.remove("active");
+				proPlan.classList.remove("active");
+				setPlanPrice(numAdvancePrice);
+				break;
 			case proPlan.getAttribute("value"):
-				return (
-					proPlan.classList.add("active"),
-					advancePlan.classList.remove("active"),
-					arcadePlan.classList.remove("active")
-				);
+				if (!proPlan.classList.contains("active")) {
+					proPlan.classList.add("active");
+				}
+				advancePlan.classList.remove("active");
+				arcadePlan.classList.remove("active");
+				setPlanPrice(numProPrice);
+				break;
 
 			default:
-				return;
+				break;
 		}
-	}, [activePlan]);
+	}, [plan, PlanFormik.values.planChoosed]);
 
 	// ======================end of choose plans======================
 
@@ -85,7 +112,7 @@ export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
 							</div>
 							<div className="plan-details">
 								<h2>Arcade</h2>
-								<p>{!plan ? "$9/monthly" : "$90/yr"}</p>
+								<p>{arcadePrice}</p>
 								<span>{!plan || "2 months free"}</span>
 							</div>
 						</div>
@@ -102,7 +129,7 @@ export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
 							</div>
 							<div className="plan-details">
 								<h2>Advanced</h2>
-								<p>{!plan ? "$12/monthly" : "$120/yr"}</p>
+								<p>{advancePrice}</p>
 								<span>{!plan || "2 months free"}</span>
 							</div>
 						</div>
@@ -119,7 +146,7 @@ export default function Plan({ headStep, step, plan, setPlan, PlanFormik }) {
 							</div>
 							<div className="plan-details">
 								<h2>Pro</h2>
-								<p>{!plan ? "$15/monthly" : "$150/yr"}</p>
+								<p>{proPrice}</p>
 								<span>{!plan || "2 months free"}</span>
 							</div>
 						</div>
