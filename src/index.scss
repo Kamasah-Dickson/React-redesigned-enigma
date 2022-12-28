@@ -12,7 +12,9 @@ body {
 	font-size: rem(16);
 	font-family: "Ubuntu", sans-serif;
 	background-color: c.$Magnolia;
-	// min-height: 100vh;
+	@include breakpoints_min(medium) {
+		min-height: 100vh;
+	}
 	display: grid;
 	align-items: center;
 	position: relative;
@@ -36,8 +38,17 @@ body {
 		grid-template-columns: 1fr;
 		gap: rem(30);
 		height: 100%;
+		.container {
+			.provide-details {
+				.desktop-move-forward {
+					display: none;
+				}
+			}
+		}
+
 		.aside-wrapper {
 			margin-top: rem(30);
+
 			.aside {
 				.steps {
 					display: flex;
@@ -103,6 +114,183 @@ body {
 					background-color: transparent;
 					color: c.$Cool-gray;
 					font-weight: $weight-lg;
+				}
+			}
+		}
+	}
+	//media-queries
+
+	@include breakpoints_min(medium) {
+		height: rem(570);
+		width: min(100% - rem(80), rem(910));
+		margin-inline: auto;
+		display: grid;
+
+		background-image: unset;
+		// background-color: c.$White;
+		background-color: rgba(116, 110, 110, 0.986);
+		box-shadow: 1rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+		background-size: unset;
+		background-position: unset;
+		background-repeat: unset;
+		padding: rem(15);
+		border-radius: rem(15);
+
+		.form-wrapper {
+			display: grid;
+			grid-template-columns: rem(280) 1fr;
+			gap: rem(75);
+			// height: 100%;
+			// position: relative;
+			// padding: rem(20);
+
+			.container {
+				width: unset;
+				margin: unset;
+				height: 100%;
+				form {
+					height: 100%;
+				}
+				.provide-details {
+					height: 100%;
+					padding-block: unset;
+					box-shadow: unset;
+					border-radius: unset;
+					display: flex;
+					flex-direction: column;
+					max-width: rem(450);
+					justify-content: center;
+					p {
+						margin-bottom: 0;
+						font-size: rem(16);
+					}
+					h1 {
+						margin-top: rem(40);
+						font-size: rem(33);
+					}
+					form {
+						display: flex;
+						align-items: center;
+						flex-direction: column;
+						margin-top: unset;
+					}
+					.desktop-move-forward {
+						display: flex;
+						width: 100%;
+						margin-bottom: rem(20);
+						// background-color: c.$White;
+						padding-block: unset;
+						margin-top: unset;
+						.container {
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+							width: 100%;
+							button {
+								padding: rem(10) rem(20);
+								border-radius: rem(7);
+								background-color: c.$Marine-blue;
+								font-size: clamp(rem(11), rem(11) + 1.3vw, rem(20));
+								font-weight: $weight-md;
+								color: c.$White;
+								cursor: pointer;
+								border: none;
+								display: inline-block;
+							}
+							.forward {
+								justify-self: flex-end;
+								margin-left: auto;
+								order: 2;
+							}
+							.back {
+								justify-self: flex-start;
+								margin-right: auto;
+								order: 1;
+								display: none;
+								background-color: transparent;
+								color: c.$Cool-gray;
+								font-weight: $weight-lg;
+							}
+						}
+					}
+				}
+			}
+			.aside-wrapper {
+				margin-top: unset;
+				border-radius: rem(10);
+				background-image: url("./images/bg-sidebar-desktop.svg");
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				height: 100%;
+
+				.aside {
+					.steps {
+						display: flex;
+						align-items: center;
+						flex-direction: column;
+						// height: 100vh; fix
+						// width: 100%; fix
+						justify-content: center;
+						gap: rem(20); //fix
+						.step {
+							width: rem(15); //fix
+							height: rem(15); //fix
+							// border: rem(2) solid c.$White;
+							// padding: rem(12);
+							// display: grid;
+							// place-content: center;
+							// font-weight: $weight-md;
+							// font-size: clamp(rem(15), rem(17) + 5vw, rem(20));
+						}
+						// .active {
+						// 	background-color: c.$Light-blue;
+						// 	border-color: transparent;
+						// 	color: c.$Marine-blue;
+						// 	font-weight: $weight-lg;
+						// 	box-shadow: 0.7rem 0.1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+						// }
+					}
+				}
+			}
+
+			.move-forward {
+				// position: absolute;
+				display: none;
+				bottom: 0;
+				// display: none;
+				// width: 100%;
+				// background-color: c.$White;
+				// padding-block: rem(20);
+				// margin-top: rem(50);
+				.container {
+					display: flex;
+					// align-items: center;
+					// button {
+					// 	padding: rem(15) rem(25);
+					// 	border-radius: rem(7);
+					// 	background-color: c.$Marine-blue;
+					// 	font-size: clamp(rem(11), rem(11) + 1.3vw, rem(20));
+					// 	font-weight: $weight-md;
+					// 	color: c.$White;
+					// 	cursor: pointer;
+					// 	border: none;
+					// 	display: inline-block;
+					// }
+					// .forward {
+					// 	justify-self: flex-end;
+					// 	margin-left: auto;
+					// 	order: 2;
+					// }
+					// .back {
+					// 	justify-self: flex-start;
+					// 	margin-right: auto;
+					// 	order: 1;
+					// 	display: none;
+					// 	background-color: transparent;
+					// 	color: c.$Cool-gray;
+					// 	font-weight: $weight-lg;
+					// }
 				}
 			}
 		}

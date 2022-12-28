@@ -30,6 +30,10 @@
 			font-size: clamp(rem(11), rem(12) + 1vw, rem(20));
 			margin-top: $margin-lg;
 			width: 100%;
+			@include breakpoints_min(medium) {
+				font-size: rem(16);
+				margin-bottom: $margin-sm;
+			}
 		}
 		input {
 			width: calc(100% - $padding-vs);
@@ -50,6 +54,9 @@
 				color: c.$Cool-gray;
 				font-size: clamp(rem(7), rem(8) + 1.8vw, rem(20));
 				font-weight: $weight-md;
+			}
+			@include breakpoints_min(medium) {
+				height: rem(50);
 			}
 		}
 		.error {

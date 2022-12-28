@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Aside({ step, setStep }) {
+export default function Aside({ step }) {
 	return (
 		<div className="aside">
 			<div className="steps">
@@ -13,7 +13,10 @@ export default function Aside({ step, setStep }) {
 				<div className={`step ${step === 2 && "active"}`} aria-label="3">
 					3
 				</div>
-				<div className={`step ${step === 3 && "active"}`} aria-label="4">
+				<div
+					className={`step ${step === 3 && "active"} ${step === 4 && "active"}`}
+					aria-label="4"
+				>
 					4
 				</div>
 			</div>

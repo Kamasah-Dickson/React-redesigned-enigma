@@ -14,6 +14,16 @@
 	}
 }
 
+$breakpoints-min: (
+	medium: rem(768),
+);
+
+@mixin breakpoints_min($size) {
+	@media (min-width: map-get($breakpoints-min,$size)) {
+		@content;
+	}
+}
+
 $weight-sm: regular;
 $weight-md: medium;
 $weight-lg: bold;

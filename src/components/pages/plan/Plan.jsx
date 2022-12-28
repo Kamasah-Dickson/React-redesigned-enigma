@@ -1,5 +1,5 @@
 import "./plan.scss";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import arcade from "../../../images/icon-arcade.svg";
 import advance from "../../../images/icon-advanced.svg";
 import pro from "../../../images/icon-pro.svg";
@@ -93,98 +93,94 @@ export default function Plan({
 	}
 
 	return (
-		<div className="container">
-			<form id="planForm" onSubmit={PlanFormik.handleSubmit}>
-				<div className="provide-details">
-					<h1 tabIndex="0">{headStep[step].h1}</h1>
-					<p tabIndex="0">{headStep[step].p}</p>
-					<div className="plans">
-						<div
-							className="plan"
-							ref={arcadeRef}
-							tabIndex="0"
-							value="Arcade"
-							onFocus={(e) => handleFocus(e)}
-							onBlur={(e) => handleBlur(e)}
-						>
-							<div className="img">
-								<img src={arcade} aria-hidden="true" />
-							</div>
-							<div className="plan-details">
-								<h2>Arcade</h2>
-								<p>{arcadePrice}</p>
-								<span>{!plan || "2 months free"}</span>
-							</div>
+		<form id="planForm" onSubmit={PlanFormik.handleSubmit}>
+			<div className="provide-details">
+				<h1 tabIndex="0">{headStep[step].h1}</h1>
+				<p tabIndex="0">{headStep[step].p}</p>
+				<div className="plans">
+					<div
+						className="plan"
+						ref={arcadeRef}
+						tabIndex="0"
+						value="Arcade"
+						onFocus={(e) => handleFocus(e)}
+						onBlur={(e) => handleBlur(e)}
+					>
+						<div className="img">
+							<img src={arcade} aria-hidden="true" />
 						</div>
-						<div
-							className="plan"
-							tabIndex="0"
-							ref={advanceRef}
-							value="advanced"
-							onFocus={(e) => handleFocus(e)}
-							onBlur={(e) => handleBlur(e)}
-						>
-							<div className="img">
-								<img src={advance} aria-hidden="true" />
-							</div>
-							<div className="plan-details">
-								<h2>Advanced</h2>
-								<p>{advancePrice}</p>
-								<span>{!plan || "2 months free"}</span>
-							</div>
+						<div className="plan-details">
+							<h2>Arcade</h2>
+							<p>{arcadePrice}</p>
+							<span>{!plan || "2 months free"}</span>
 						</div>
-						<div
-							className="plan"
-							tabIndex="0"
-							ref={proRef}
-							value="pro"
-							onFocus={(e) => handleFocus(e)}
-							onBlur={(e) => handleBlur(e)}
-						>
-							<div className="img">
-								<img src={pro} aria-hidden="true" />
-							</div>
-							<div className="plan-details">
-								<h2>Pro</h2>
-								<p>{proPrice}</p>
-								<span>{!plan || "2 months free"}</span>
-							</div>
-						</div>
-						{PlanFormik.errors.planChoosed && (
-							<p className="error">
-								{"Please Select an arcade,advanced or a Pro plan "}
-							</p>
-						)}
 					</div>
-					<div className="choice">
-						<span
-							className="focus"
-							onClick={() => setPlan(false)}
-							aria-label="plan monthly"
-						>
-							Monthly
-						</span>
-
-						<Switch
-							checked={plan}
-							value={plan}
-							onChange={(e) => (
-								setPlan(!plan),
-								(PlanFormik.values.period = e.target.value
-									? "yearly"
-									: "Monthly")
-							)}
-							//allows the modification or addition of attributes
-							inputProps={toggleProps}
-							className="switch"
-							id="check"
-						/>
-						<span aria-label="plan yearly" onClick={() => setPlan(true)}>
-							Yearly
-						</span>
+					<div
+						className="plan"
+						tabIndex="0"
+						ref={advanceRef}
+						value="advanced"
+						onFocus={(e) => handleFocus(e)}
+						onBlur={(e) => handleBlur(e)}
+					>
+						<div className="img">
+							<img src={advance} aria-hidden="true" />
+						</div>
+						<div className="plan-details">
+							<h2>Advanced</h2>
+							<p>{advancePrice}</p>
+							<span>{!plan || "2 months free"}</span>
+						</div>
 					</div>
+					<div
+						className="plan"
+						tabIndex="0"
+						ref={proRef}
+						value="pro"
+						onFocus={(e) => handleFocus(e)}
+						onBlur={(e) => handleBlur(e)}
+					>
+						<div className="img">
+							<img src={pro} aria-hidden="true" />
+						</div>
+						<div className="plan-details">
+							<h2>Pro</h2>
+							<p>{proPrice}</p>
+							<span>{!plan || "2 months free"}</span>
+						</div>
+					</div>
+					{PlanFormik.errors.planChoosed && (
+						<p className="error">
+							{"Please Select an arcade,advanced or a Pro plan "}
+						</p>
+					)}
 				</div>
-			</form>
-		</div>
+				<div className="choice">
+					<span
+						className="focus"
+						onClick={() => setPlan(false)}
+						aria-label="plan monthly"
+					>
+						Monthly
+					</span>
+
+					<Switch
+						checked={plan}
+						value={plan}
+						onChange={(e) => (
+							setPlan(!plan),
+							(PlanFormik.values.period = e.target.value ? "yearly" : "Monthly")
+						)}
+						//allows the modification or addition of attributes
+						inputProps={toggleProps}
+						className="switch"
+						id="check"
+					/>
+					<span aria-label="plan yearly" onClick={() => setPlan(true)}>
+						Yearly
+					</span>
+				</div>
+			</div>
+		</form>
 	);
 }

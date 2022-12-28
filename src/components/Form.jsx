@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
-import Aside from "./Aside";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useReducer } from "react";
 import Personal_info from "./pages/Personal-info/Personal-info";
 import Plan from "./pages/plan/Plan";
 import Add_ons from "./pages/Add-ons/Add-ons";
 import Finishing_up from "./pages/Finishing-up/Finishing-up";
-import { useReducer } from "react";
+import Thank_you from "./pages/Thank-you/Thank-you";
+import Aside from "./Aside";
 
 export default function Form() {
-	const [step, setStep] = useState(3);
+	const [step, setStep] = useState(0);
+	const [planPrice, setPlanPrice] = useState("");
 	const [plan, setPlan] = useState(false); //true = monthly && false = yearly;
+
 	const [headStep, setHeadStep] = useState([
 		{
 			h1: "Personal info",
@@ -28,6 +30,10 @@ export default function Form() {
 		{
 			h1: "Finishing up",
 			p: "Double-check everything looks OK before confirming",
+		},
+		{
+			h1: "Thank you",
+			p: "Thanks for confirming your subscription! we hope you have fun using out platform. if you ever need support, please feel free to email us at support@loremGaming.com.",
 		},
 	]);
 
@@ -83,43 +89,7 @@ export default function Form() {
 		}
 	);
 
-	const addOnsFormik = useFormik({
-		initialValues: {
-			onlineService: false,
-			largerStorage: false,
-			customizableProfile: false,
-		},
-		validationSchema: Yup.object({
-			onlineService: Yup.boolean(),
-			largerStorage: Yup.boolean(),
-			customElements: Yup.boolean(),
-		}),
-		onSubmit: (values) => {
-			setStep((prev) => prev + 1);
-			console.log(planPrice);
-
-			console.log(values);
-		},
-	});
-
-	const [planPrice, setPlanPrice] = useState("");
-
-	const PlanFormik = useFormik({
-		initialValues: {
-			planChoosed: "",
-			period: "Monthly",
-		},
-		validationSchema: Yup.object({
-			planChoosed: Yup.string().required("Please choose a plan"),
-		}),
-		onSubmit: (values) => {
-			if (Object.values(values).every((data) => data !== "")) {
-				console.log(values);
-
-				setStep((prev) => prev + 1);
-			}
-		},
-	});
+	const [finalData, setFinalData] = useState({});
 
 	const formik = useFormik({
 		initialValues: {
@@ -142,9 +112,51 @@ export default function Form() {
 
 		onSubmit: (values) => {
 			if (Object.values(values).every((data) => data !== "")) {
-				console.log(values);
+				setFinalData(values);
 			}
 			setStep((prev) => prev + 1);
+		},
+	});
+
+	const PlanFormik = useFormik({
+		initialValues: {
+			planChoosed: "",
+			period: "Monthly",
+		},
+		validationSchema: Yup.object({
+			planChoosed: Yup.string().required("Please choose a plan"),
+		}),
+		onSubmit: (values) => {
+			if (Object.values(values).every((data) => data !== "")) {
+				setFinalData((prev) => ({ ...prev, ...values }));
+				setStep((prev) => prev + 1);
+			}
+		},
+	});
+
+	const addOnsFormik = useFormik({
+		initialValues: {
+			onlineService: false,
+			largerStorage: false,
+			customizableProfile: false,
+		},
+		validationSchema: Yup.object({
+			onlineService: Yup.boolean(),
+			largerStorage: Yup.boolean(),
+			customElements: Yup.boolean(),
+		}),
+		onSubmit: (values) => {
+			setFinalData((prev) => ({ ...prev, ...values }));
+			setStep((prev) => prev + 1);
+		},
+	});
+
+	const FinishingFormik = useFormik({
+		initialValues: { data: "" },
+		onSubmit: (values) => {
+			setFinalData((prev) => ({ ...prev, ...values }));
+			setStep((prev) => prev + 1);
+			console.log(finalData);
 		},
 	});
 
@@ -167,44 +179,97 @@ export default function Form() {
 							<Aside step={step} setStep={setStep} />
 						</div>
 					</div>
+					<div className="container">
+						<div className="provide-details">
+							{step === 0 && (
+								<Personal_info
+									step={step}
+									formik={formik}
+									headStep={headStep}
+								/>
+							)}
 
-					{step === 0 && (
-						<Personal_info step={step} formik={formik} headStep={headStep} />
-					)}
+							{step === 1 && (
+								<Plan
+									step={step}
+									headStep={headStep}
+									plan={plan}
+									setPlan={setPlan}
+									PlanFormik={PlanFormik}
+									setPlanPrice={setPlanPrice}
+								/>
+							)}
+							{step === 2 && (
+								<Add_ons
+									step={step}
+									headStep={headStep}
+									addOnsFormik={addOnsFormik}
+									plan={plan}
+									dispatch={dispatch}
+								/>
+							)}
 
-					{step === 1 && (
-						<Plan
-							step={step}
-							headStep={headStep}
-							plan={plan}
-							setPlan={setPlan}
-							PlanFormik={PlanFormik}
-							setPlanPrice={setPlanPrice}
-						/>
-					)}
-					{step === 2 && (
-						<Add_ons
-							step={step}
-							headStep={headStep}
-							addOnsFormik={addOnsFormik}
-							plan={plan}
-							dispatch={dispatch}
-						/>
-					)}
-
-					{step === 3 && (
-						<Finishing_up
-							step={step}
-							headStep={headStep}
-							choosedPlan={PlanFormik.values.planChoosed}
-							plan={plan}
-							planPrice={planPrice}
-							setStep={setStep}
-							addOnData={addOnData}
-						/>
-					)}
-
-					<div className=" form move-forward">
+							{step === 3 && (
+								<Finishing_up
+									step={step}
+									headStep={headStep}
+									choosedPlan={PlanFormik.values.planChoosed}
+									plan={plan}
+									planPrice={planPrice}
+									setStep={setStep}
+									addOnData={addOnData}
+									FinishingFormik={FinishingFormik}
+								/>
+							)}
+							{step === 4 && <Thank_you headStep={headStep} step={step} />}
+							<div
+								className=" desktop-move-forward"
+								style={step === 4 ? { display: "none" } : {}}
+							>
+								<div
+									className="container"
+									style={{ justifyContent: "space-between" }}
+								>
+									<button
+										style={
+											step === 3
+												? { backgroundColor: "hsl(243, 100%, 62%)" }
+												: {}
+										}
+										className="forward"
+										type="submit"
+										onClick={handleSteps}
+										form={
+											step === 0
+												? "myForm"
+												: step === 1
+												? "planForm"
+												: step === 2
+												? "add_onsForm"
+												: step === 3
+												? "finishUp"
+												: null
+										}
+									>
+										{step === 3 ? "Confirm" : "Next step"}
+									</button>
+									{step > 0 && (
+										<button
+											className="back"
+											style={{ display: "flex" }}
+											onClick={() => setStep((prev) => prev - 1)}
+										>
+											Go back
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						className=" form move-forward"
+						style={step === 4 ? { display: "none" } : {}}
+					>
 						<div
 							className="container"
 							style={{ justifyContent: "space-between" }}
@@ -223,6 +288,8 @@ export default function Form() {
 										? "planForm"
 										: step === 2
 										? "add_onsForm"
+										: step === 3
+										? "finishUp"
 										: null
 								}
 							>
