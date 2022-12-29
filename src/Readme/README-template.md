@@ -16,8 +16,8 @@
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [solution](https://github.com/Kamasah-Dickson/React-redesigned-enigma)
+- Live Site URL: [live site](https://capable-sable-35c3fa.netlify.app/)
 
 ## My process
 
@@ -38,5 +38,5 @@ Object.values(); //[value] pairs
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@Kamasah-Dickson](https://www.frontendmentor.io/profile/Kamasah-Dickson)
+- Twitter - [@Kamasah-Dickson](https://twitter.com/Kamas_DEV)
