@@ -54,6 +54,10 @@
 			color: c.$Marine-blue;
 			font-weight: $weight-md;
 			padding-left: $padding-vs;
+			&:hover {
+				cursor: pointer;
+				border-color: c.$Purplish-blue;
+			}
 			@include breakpoints_min(medium) {
 				border-radius: rem(7);
 			}
@@ -93,6 +97,7 @@
 				font-size: rem(14);
 				font-weight: $weight-sm;
 				margin-left: auto;
+				text-transform: lowercase;
 			}
 		}
 	}

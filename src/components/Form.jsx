@@ -107,6 +107,7 @@ export default function Form() {
 				.required("Email is required"),
 			phone: Yup.string()
 				.min(10, "Phone number must be at least 10")
+				.max(13, "Phone number is too long")
 				.required("Field is required"),
 		}),
 
