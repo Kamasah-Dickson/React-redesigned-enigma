@@ -1,18 +1,31 @@
 @use "../../../colors" as c;
 @use "../../../variables.scss" as *;
 
+#add_onsForm {
+	height: 100%;
+	align-items: unset;
+	.provide-details {
+		justify-content: unset;
+		padding-inline: 0;
+		box-shadow: none;
+	}
+}
+
 .pick-add-ons {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
-	gap: rem(20);
+	gap: 0;
+	@include breakpoints-min(medium) {
+		margin-top: rem(20);
+	}
 	.add-ons {
 		gap: clamp(rem(5), rem(13) + 3vw, rem(15));
 		display: flex;
 		align-items: center;
-		padding: rem(10) rem(20);
-		height: rem(55);
+		padding: rem(20) rem(20);
+		height: rem(45);
 		width: 85%;
 		margin-inline: auto;
 		border-radius: rem(8);
@@ -52,7 +65,7 @@
 		p {
 			margin: 0;
 			font-weight: $weight-sm;
-			font-size: clamp(rem(7), rem(8) + 2vw, rem(14));
+			font-size: clamp(rem(7), rem(7) + 1.2vw, rem(14));
 			font-weight: $weight-md;
 		}
 	}
@@ -65,5 +78,14 @@
 		text-align: right;
 		justify-items: flex-end;
 		align-items: flex-end;
+	}
+
+	@include breakpoints-min(medium) {
+		gap: rem(0);
+		.add-ons {
+			width: 100%;
+			padding: rem(15) rem(20);
+			height: rem(50);
+		}
 	}
 }

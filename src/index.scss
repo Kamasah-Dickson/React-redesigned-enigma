@@ -50,6 +50,9 @@ body {
 			margin-top: rem(30);
 
 			.aside {
+				.tree {
+					display: none;
+				}
 				.steps {
 					display: flex;
 					align-items: center;
@@ -59,7 +62,7 @@ body {
 					color: c.$White;
 					gap: rem(20);
 					z-index: 3;
-					.step {
+					.step p {
 						width: rem(15);
 						height: rem(15);
 						border: rem(2) solid c.$White;
@@ -71,7 +74,7 @@ body {
 						font-size: clamp(rem(15), rem(17) + 5vw, rem(20));
 						cursor: pointer;
 					}
-					.active {
+					.active p {
 						background-color: c.$Light-blue;
 						border-color: transparent;
 						color: c.$Marine-blue;
@@ -127,8 +130,8 @@ body {
 		display: grid;
 
 		background-image: unset;
-		// background-color: c.$White;
-		background-color: rgba(116, 110, 110, 0.986);
+		background-color: c.$White;
+		// background-color: rgba(116, 110, 110, 0.986);
 		box-shadow: 1rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
 		background-size: unset;
 		background-position: unset;
@@ -140,9 +143,6 @@ body {
 			display: grid;
 			grid-template-columns: rem(280) 1fr;
 			gap: rem(75);
-			// height: 100%;
-			// position: relative;
-			// padding: rem(20);
 
 			.container {
 				width: unset;
@@ -165,7 +165,7 @@ body {
 						font-size: rem(16);
 					}
 					h1 {
-						margin-top: rem(40);
+						margin-top: rem(30);
 						font-size: rem(33);
 					}
 					form {
@@ -173,6 +173,24 @@ body {
 						align-items: center;
 						flex-direction: column;
 						margin-top: unset;
+						height: 390px;
+						.error {
+							margin-left: auto;
+						}
+						label {
+							margin-top: rem(17);
+							margin-bottom: rem(7);
+							.error-desktop {
+								display: flex;
+								color: c.$Strawberry-red;
+								font-size: rem(14);
+								font-weight: $weight-sm;
+								margin-left: auto;
+							}
+						}
+						p {
+							color: c.$Marine-blue;
+						}
 					}
 					.desktop-move-forward {
 						display: flex;
@@ -225,73 +243,47 @@ body {
 				height: 100%;
 
 				.aside {
-					.steps {
+					.step {
 						display: flex;
 						align-items: center;
-						flex-direction: column;
-						// height: 100vh; fix
-						// width: 100%; fix
 						justify-content: center;
-						gap: rem(20); //fix
-						.step {
-							width: rem(15); //fix
-							height: rem(15); //fix
-							// border: rem(2) solid c.$White;
-							// padding: rem(12);
-							// display: grid;
-							// place-content: center;
-							// font-weight: $weight-md;
-							// font-size: clamp(rem(15), rem(17) + 5vw, rem(20));
+					}
+					.tree {
+						display: flex;
+						flex-direction: column;
+						text-align: left;
+						margin-left: rem(10);
+						gap: rem(4);
+						h2 {
+							font-size: rem(15);
 						}
-						// .active {
-						// 	background-color: c.$Light-blue;
-						// 	border-color: transparent;
-						// 	color: c.$Marine-blue;
-						// 	font-weight: $weight-lg;
-						// 	box-shadow: 0.7rem 0.1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
-						// }
+						span {
+							font-size: rem(12);
+							font-weight: $weight-sm;
+							color: c.$Light-gray;
+						}
+					}
+					.steps {
+						display: flex;
+						align-items: flex-start;
+						flex-direction: column;
+						margin-left: rem(31);
+						margin-top: rem(40);
+						gap: rem(27);
+
+						.step p {
+							width: rem(10);
+							height: rem(10);
+							font-size: rem(16);
+							font-weight: $weight-lg;
+						}
 					}
 				}
 			}
 
 			.move-forward {
-				// position: absolute;
 				display: none;
 				bottom: 0;
-				// display: none;
-				// width: 100%;
-				// background-color: c.$White;
-				// padding-block: rem(20);
-				// margin-top: rem(50);
-				.container {
-					display: flex;
-					// align-items: center;
-					// button {
-					// 	padding: rem(15) rem(25);
-					// 	border-radius: rem(7);
-					// 	background-color: c.$Marine-blue;
-					// 	font-size: clamp(rem(11), rem(11) + 1.3vw, rem(20));
-					// 	font-weight: $weight-md;
-					// 	color: c.$White;
-					// 	cursor: pointer;
-					// 	border: none;
-					// 	display: inline-block;
-					// }
-					// .forward {
-					// 	justify-self: flex-end;
-					// 	margin-left: auto;
-					// 	order: 2;
-					// }
-					// .back {
-					// 	justify-self: flex-start;
-					// 	margin-right: auto;
-					// 	order: 1;
-					// 	display: none;
-					// 	background-color: transparent;
-					// 	color: c.$Cool-gray;
-					// 	font-weight: $weight-lg;
-					// }
-				}
 			}
 		}
 	}

@@ -15,7 +15,7 @@ export default function Plan({
 	PlanFormik,
 	setPlanPrice,
 }) {
-	const arcadePrice = !plan ? "$9" : "$90/yr";
+	const arcadePrice = !plan ? "$9/mo" : "$90/yr";
 	const advancePrice = !plan ? "$12/mo" : "$120/yr";
 	const proPrice = !plan ? "$15/mo" : "$150/yr";
 	// want the raw value for summation
@@ -155,6 +155,7 @@ export default function Plan({
 						</p>
 					)}
 				</div>
+
 				<div className="choice">
 					<span
 						className="focus"
@@ -180,6 +181,11 @@ export default function Plan({
 						Yearly
 					</span>
 				</div>
+				{PlanFormik.errors.planChoosed && (
+					<p className="error desktop-error">
+						{"Please Select an arcade,advanced or a Pro plan "}
+					</p>
+				)}
 			</div>
 		</form>
 	);

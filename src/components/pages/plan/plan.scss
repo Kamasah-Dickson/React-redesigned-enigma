@@ -1,6 +1,13 @@
 @use "../../../colors" as c;
 @use "../../../variables.scss" as *;
 
+#planForm {
+	height: 100%;
+	.provide-details {
+		box-shadow: none;
+	}
+}
+
 .plans {
 	display: flex;
 	align-content: center;
@@ -35,6 +42,7 @@
 				font-weight: $weight-sm;
 				font-size: rem(16);
 				font-weight: $weight-md;
+				color: c.$Light-gray;
 			}
 			span {
 				color: c.$Marine-blue;
@@ -47,7 +55,7 @@
 			background-color: c.$Magnolia;
 			transition: 0.2s ease;
 			cursor: pointer;
-			outline: rem(1) solid c.$Purplish-blue;
+			border: rem(1) solid c.$Purplish-blue;
 		}
 	}
 	.error {
@@ -56,6 +64,21 @@
 		text-align: center;
 		font-weight: $weight-sm;
 		margin: 0;
+	}
+
+	justify-content: flex-start;
+	@include breakpoints-min(medium) {
+		flex-direction: row;
+		margin-top: rem(40);
+		.plan {
+			flex-direction: column;
+			align-items: flex-start;
+			text-align: left;
+			padding: rem(15);
+			width: rem(150);
+			height: rem(130);
+			justify-content: space-between;
+		}
 	}
 }
 
@@ -69,6 +92,9 @@
 	border-radius: rem(8);
 	padding-block: rem(10);
 	gap: rem(15);
+	@include breakpoints-min(medium) {
+		padding-block: rem(5);
+	}
 	.focus {
 		color: c.$Marine-blue;
 		font-weight: $weight-lg;
@@ -103,3 +129,15 @@
 		opacity: 1;
 	}
 }
+@include breakpoints-min(medium) {
+	.desktop-error {
+		display: flex !important;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: c.$Strawberry-red !important;
+		font-size: rem(15) !important;
+	}
+}
+//

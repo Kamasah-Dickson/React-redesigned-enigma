@@ -26,6 +26,10 @@
 					text-decoration: underline;
 					color: c.$Cool-gray;
 					cursor: pointer;
+					&:hover {
+						color: c.$Purplish-blue;
+						transition: 0.3s ease;
+					}
 				}
 			}
 			.price {
@@ -79,6 +83,26 @@
 			color: c.$Purplish-blue;
 			font-size: rem(18);
 			font-weight: $weight-lg;
+		}
+	}
+}
+
+@include breakpoints-min(medium) {
+	#finishUp {
+		height: 100%;
+		align-items: flex-start;
+		padding-right: rem(50);
+		.finish-up {
+			max-width: rem(390);
+			width: 100%;
+			margin-top: rem(40);
+			min-height: rem(150);
+		}
+		.total-plan {
+			width: 100%;
+			.total-price {
+				font-size: rem(24);
+			}
 		}
 	}
 }

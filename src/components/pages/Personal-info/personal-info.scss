@@ -5,7 +5,7 @@
 	z-index: 3;
 	background-color: c.$White;
 	box-shadow: 0 1.1rem 1rem -0.8rem c.$Light-gray;
-	padding: rem(40) rem(20);
+	padding: rem(30) rem(20);
 	border-radius: rem(10);
 	h1 {
 		color: c.$Marine-blue;
@@ -30,11 +30,20 @@
 			font-size: clamp(rem(11), rem(12) + 1vw, rem(20));
 			margin-top: $margin-lg;
 			width: 100%;
+			p {
+				margin-bottom: $margin-vs;
+				color: c.$Marine-blue;
+			}
 			@include breakpoints_min(medium) {
 				font-size: rem(16);
 				margin-bottom: $margin-sm;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
 			}
 		}
+
 		input {
 			width: calc(100% - $padding-vs);
 			display: block;
@@ -45,6 +54,9 @@
 			color: c.$Marine-blue;
 			font-weight: $weight-md;
 			padding-left: $padding-vs;
+			@include breakpoints_min(medium) {
+				border-radius: rem(7);
+			}
 			&:focus {
 				outline: rem(0.5) solid c.$Purplish-blue;
 			}
@@ -54,6 +66,9 @@
 				color: c.$Cool-gray;
 				font-size: clamp(rem(7), rem(8) + 1.8vw, rem(20));
 				font-weight: $weight-md;
+				@include breakpoints_min(medium) {
+					font-size: rem(19);
+				}
 			}
 			@include breakpoints_min(medium) {
 				height: rem(50);
@@ -64,6 +79,21 @@
 			font-size: rem(14);
 			font-weight: $weight-sm;
 			margin-top: $margin-sm;
+		}
+		.error-desktop {
+			display: none;
+		}
+		@include breakpoints_min(medium) {
+			.error {
+				display: none;
+			}
+			.error-desktop {
+				display: flex;
+				color: c.$Strawberry-red;
+				font-size: rem(14);
+				font-weight: $weight-sm;
+				margin-left: auto;
+			}
 		}
 	}
 }

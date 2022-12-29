@@ -6,7 +6,10 @@ export default function Personal_info({ formik, step, headStep }) {
 			<h1>{headStep[step].h1}</h1>
 			<p>{headStep[step].p}</p>
 			<form id="myForm" onSubmit={formik.handleSubmit}>
-				<label htmlFor="name">Name</label>
+				<label htmlFor="name">
+					<p>Name</p>
+					<p className="error-desktop">{formik.errors.name}</p>
+				</label>
 				<input
 					id="name"
 					type="text"
@@ -20,7 +23,10 @@ export default function Personal_info({ formik, step, headStep }) {
 					<p className="error">{formik.errors.name}</p>
 				)}
 
-				<label htmlFor="email">Email address</label>
+				<label htmlFor="email">
+					<p>Email address</p>
+					<p className="error-desktop">{formik.errors.email}</p>
+				</label>
 				<input
 					id="email"
 					type="email"
@@ -34,7 +40,10 @@ export default function Personal_info({ formik, step, headStep }) {
 					<p className="error">{formik.errors.email}</p>
 				)}
 
-				<label htmlFor="phone">phone number</label>
+				<label htmlFor="phone">
+					<p>phone number</p>
+					<p className="error-desktop">{formik.errors.phone}</p>
+				</label>
 				<input
 					id="phone"
 					type="text"

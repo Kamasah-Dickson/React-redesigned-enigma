@@ -6,11 +6,33 @@
 	align-items: center;
 	flex-direction: column;
 	text-align: center;
+	height: 100%;
+	box-shadow: none;
 	h1 {
 		margin-top: rem(10);
 		color: c.$Marine-blue;
 	}
 	p {
-		font-size: clamp(rem(11), rem(12) + 1.4vw, rem(20));
+		font-size: clamp(rem(11), rem(11) + 1.4vw, rem(20));
+	}
+	.me {
+		width: rem(50);
+		height: rem(50);
+		border-radius: 100%;
+	}
+
+	@include breakpoints-min(medium) {
+		padding-inline: 0;
+		.me {
+			position: relative;
+			top: rem(80);
+			&:hover {
+				opacity: 0.8;
+				transition: opacity 0.3s ease;
+			}
+		}
+		p {
+			font-size: rem(18) !important;
+		}
 	}
 }
